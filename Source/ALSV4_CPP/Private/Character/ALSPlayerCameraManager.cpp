@@ -4,11 +4,13 @@
 
 #include "Character/ALSPlayerCameraManager.h"
 
+#include "Engine/World.h"
 
 #include "Character/ALSBaseCharacter.h"
 #include "Character/ALSPlayerController.h"
 #include "Character/Animation/ALSPlayerCameraBehavior.h"
 #include "Components/ALSDebugComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 
 #include "Kismet/KismetMathLibrary.h"
 
@@ -195,8 +197,8 @@ bool AALSPlayerCameraManager::CustomCameraBehavior(float DeltaTime, FVector& Loc
 
 	FHitResult HitResult;
 	const FCollisionShape SphereCollisionShape = FCollisionShape::MakeSphere(TraceRadius);
-	const bool bHit = World->SweepSingleByChannel(HitResult, TraceOrigin, TargetCameraLocation, FQuat::Identity,
-	                                              TraceChannel, SphereCollisionShape, Params);
+	const bool bHit(World->SweepSingleByChannel(HitResult, TraceOrigin, TargetCameraLocation, FQuat::Identity,
+	                                            TraceChannel, SphereCollisionShape, Params));
 
 	if (ALSDebugComponent && ALSDebugComponent->GetShowTraces())
 	{
